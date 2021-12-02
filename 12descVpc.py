@@ -1,5 +1,5 @@
 import boto3
-vpcClient=boto3.client("ec2") #vpc-0165db4801ceaab19, us-east-1  vpc64mujahed
+vpcClient=boto3.client("ec2")
 
 def fnVPCDescribe(tagKey,tagValues,maxItems=5):
     from botocore.exceptions import ClientError
