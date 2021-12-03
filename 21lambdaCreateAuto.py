@@ -1,36 +1,26 @@
 import boto3
 import json
 
+#01. Select IAM Role
 iam=boto3.client("iam")
-
-# role_policy={
-#   "Version": "2012-10-17",
-#   "Statement": [
-#     {
-#       "Sid": "",
-#       "Effect": "Allow",
-#       "Principal": {
-#         "Service": "lambda.amazonaws.com"
-#       },
-#       "Action": "sts:AssumeRole"
-#     }
-#   ]
-# }
-
-# response=iam.create_role(RoleName="rl03decmujahedv2",
-# AssumeRolePolicyDocument=json.dumps(role_policy)
-# )
-
 role=iam.get_role(RoleName="r1nishi03dec")
 print("----------")
-print(role["Role"]["Arn"])
-print("----------")
-lambdaClient=boto3.client("lambda")
+
+#02. Create Lambda.zip File
+dir_name=r"C:\Users\Administrator\.vscode\PythonRepo\serverlessarchi"
+output_file="lambda"
+import shutil
+shutil.make_archive(output_file,'zip',dir_name)
+print("Zip Created kindly Check...")
+
+#03. Convert lambda.zip into Object
 zipped_code=""
 with open("lambda.zip","rb") as f:
   zipped_code=f.read()
 print("----zippedCode Created------")
 
+# 04. Create Lambda Function using Parameters
+lambdaClient=boto3.client("lambda")
 response=lambdaClient.create_function(
   FunctionName="fn03decnishi",
   Runtime="python3.8",
