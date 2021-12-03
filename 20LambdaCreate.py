@@ -1,5 +1,5 @@
 import boto3
-
+iam=boto3.client("iam")
 role=iam.get_role(RoleName="r1nishi03dec")
 print("============")
 print(role["Role"]["Arn"])
@@ -15,7 +15,7 @@ response=lambdaClient.create_function(
     FunctionName="nishifunc",
     Runtime="pyton3.8",
     Role=role["Role"]["Arn"],
-    Handler="handler.lambda_handler"
+    Handler="handler.lambda_handler",
     Code=dict(ZipFile=zipped_code),
     Timeout=300
 )
